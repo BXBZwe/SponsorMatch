@@ -14,7 +14,7 @@ with open ("/home/bxbzwe/projects/SponsorMatch/data/raw/3112026uksponsor.csv", n
         town_counts[lowertown] = town_counts.get(lowertown, 0) + 1
     
     sorted_town_counts = sorted(town_counts.items(), key=lambda x: x[1], reverse=True)
+    print(headername)
+    print(countrow)
     print(sorted_town_counts[:10])
-    # print(sponsorlist[0])
-    # print(headername)
-    # print(countrow)
+
