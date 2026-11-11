@@ -6,7 +6,6 @@ with open ("/home/bxbzwe/projects/SponsorMatch/data/raw/3112026uksponsor.csv", n
     sponsorlist = list(content)
     countrow = len(sponsorlist)
     town_counts = {}
-    sorted_town_counts = []
     for row in sponsorlist:
         town = row['Town/City']
         strippedtown = town.strip() #data cleaning to remove space
