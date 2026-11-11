@@ -1,19 +1,30 @@
 import csv
+import os
 
-with open ("/home/bxbzwe/projects/SponsorMatch/data/raw/3112026uksponsor.csv", newline = "") as sponsor:
-    content = csv.DictReader(sponsor)
-    headername = content.fieldnames
-    sponsorlist = list(content)
-    countrow = len(sponsorlist)
-    town_counts = {}
-    for row in sponsorlist:
-        town = row['Town/City']
-        strippedtown = town.strip() #data cleaning to remove space
-        lowertown = strippedtown.lower() #data cleaning
-        town_counts[lowertown] = town_counts.get(lowertown, 0) + 1
-    
-    sorted_town_counts = sorted(town_counts.items(), key=lambda x: x[1], reverse=True)
-    print(headername)
-    print(countrow)
-    print(sorted_town_counts[:10])
+def read_rows(path):
+    with open (path, newline = "") as sponsor:
+        sponsor_reader = csv.DictReader(sponsor)
+        sponsorlist = list(sponsor_reader)
+        return sponsorlist
 
+def count_by(rows, key):
+    counts = {}
+    for row in rows:
+        value = row[key]
+        cleaned_value = value.strip().lower() #clean data by stripping and lowering 
+        if cleaned_value in counts:
+            counts[cleaned_value] += 1
+        else:
+            counts[cleaned_value] = 1
+    return counts
+
+def top_n(counts, n):
+    return sorted(counts.items(), key=lambda x: x[1], reverse=True)[:n]
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+path = os.path.join(BASE_DIR, "data", "raw", "3112026uksponsor.csv")
+if __name__ == "__main__":
+    readlist = read_rows(path)
+    countlist = count_by(readlist, "Town/City")
+    print(top_n(countlist, 10))
