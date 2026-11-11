@@ -9,8 +9,8 @@ with open ("/home/bxbzwe/projects/SponsorMatch/data/raw/3112026uksponsor.csv", n
     sorted_town_counts = []
     for row in sponsorlist:
         town = row['Town/City']
-        strippedtown = town.strip()
-        lowertown = strippedtown.lower()
+        strippedtown = town.strip() #data cleaning to remove space
+        lowertown = strippedtown.lower() #data cleaning
         town_counts[lowertown] = town_counts.get(lowertown, 0) + 1
     
     sorted_town_counts = sorted(town_counts.items(), key=lambda x: x[1], reverse=True)
